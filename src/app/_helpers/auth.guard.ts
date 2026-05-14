@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 
 import { AccountService } from '@app/services';
 
@@ -14,7 +14,8 @@ export class AuthGuard implements CanActivate {
         const account = this.accountService.accountValue;
         if (account) {
             // check if route is restricted by role
-            if (route.data.roles && !route.data.roles.includes(account.role)) {
+            const roles = route.data['roles'] as string[];
+            if (roles && !roles.includes(account.role!)) {
                 // role not authorized so redirect to home page
                 this.router.navigate(['/']);
                 return false;
