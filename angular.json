@@ -20,6 +20,7 @@
             "outputPath": "dist/angular-frontend-lab-7",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
