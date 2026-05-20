@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 
@@ -19,6 +19,7 @@ export class VerifyEmailComponent implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private alertService: AlertService,
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -39,6 +40,7 @@ export class VerifyEmailComponent implements OnInit {
         },
         error: () => {
           this.emailStatus = EmailStatus.Failed;
+          this.cd.detectChanges();
         },
       });
   }

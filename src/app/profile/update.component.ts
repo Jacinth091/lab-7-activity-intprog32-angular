@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
@@ -22,6 +22,7 @@ export class UpdateComponent implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private alertService: AlertService,
+    private cd: ChangeDetectorRef,
   ) {}
   ngOnInit() {
     this.account = this.accountService.accountValue!;
@@ -69,6 +70,7 @@ export class UpdateComponent implements OnInit {
         error: (error) => {
           this.alertService.error(error);
           this.submitting = false;
+          this.cd.detectChanges();
         },
       });
   }
@@ -89,6 +91,7 @@ export class UpdateComponent implements OnInit {
         this.alertService.success('Account deleted successfully', { keepAfterRouteChange: true });
         this.deleting = false;
         this.showDeleteModal = false;
+        this.cd.detectChanges();
       });
   }
 }

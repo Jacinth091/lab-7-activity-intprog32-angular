@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MustMatch } from '@app/_helpers/must-match.validator';
@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
     private router: Router,
     private accountService: AccountService,
     private alertService: AlertService,
+    private cd: ChangeDetectorRef,
   ) {}
 
   ngOnInit() {
@@ -57,6 +58,7 @@ export class RegisterComponent implements OnInit {
         error: (error) => {
           this.alertService.error(error);
           this.submitting = false;
+          this.cd.detectChanges();
         },
       });
   }
