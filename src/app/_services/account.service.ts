@@ -28,7 +28,7 @@ export class AccountService {
 
   login(email: string, password: string) {
     return this.http
-      .post<any>(`${baseUrl}/authenticate`, { email, password }, { withCredentials: true })
+      .post<any>(`${baseUrl}/authenticate`, { email, password })
       .pipe(
         map((account) => {
           this.accountSubject.next(account);
@@ -39,14 +39,14 @@ export class AccountService {
   }
 
   logout() {
-    this.http.post<any>(`${baseUrl}/revoke-token`, {}, { withCredentials: true }).subscribe();
+    this.http.post<any>(`${baseUrl}/revoke-token`, {}).subscribe();
     this.stopRefreshTokenTimer();
     this.accountSubject.next(null);
     this.router.navigate(['/account/login']);
   }
 
   refreshToken() {
-    return this.http.post<any>(`${baseUrl}/refresh-token`, {}, { withCredentials: true }).pipe(
+    return this.http.post<any>(`${baseUrl}/refresh-token`, {}).pipe(
       map((account) => {
         this.accountSubject.next(account);
         this.startRefreshTokenTimer();
